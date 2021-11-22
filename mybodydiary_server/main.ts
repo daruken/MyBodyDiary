@@ -1,12 +1,12 @@
 import * as dotenv from 'dotenv'
 import { Request, Response, NextFunction } from 'express'
-import express from 'express'
-import cors from 'cors'
 import { sequelize } from './models'
+import express = require('express')
+import cors = require('cors')
 
 dotenv.config()
 
-const PORT:number = parseInt(process.env.PORT as string, 10) || 3000
+const PORT:number = parseInt(process.env.PORT as string, 10) || 8080
 const HOST:string = process.env.HOST || 'localhost'
 const app = express()
 
@@ -26,9 +26,9 @@ app.listen(PORT,HOST,async () => {
   // //sequelize-db 연결 테스트
    await sequelize.authenticate()
    .then(async () => {
-       console.log("connection success");
+       console.log("DB connection success");
    })
    .catch((e) => {
-       console.log('TT : ', e);
+       console.log('Exception : ', e);
    })
 })
