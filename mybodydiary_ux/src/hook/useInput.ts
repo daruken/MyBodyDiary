@@ -2,6 +2,7 @@ import { useCallback, useState, SetStateAction, Dispatch, ChangeEvent } from "re
 
 const useInput = <T>(initialData: T): [T, (e: ChangeEvent<HTMLInputElement>) => void, Dispatch<SetStateAction<T>>] => {
   const [value, setValue] = useState(initialData)
+
   const handler = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value as unknown as T)
   }, [])

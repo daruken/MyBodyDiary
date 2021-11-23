@@ -3,7 +3,6 @@ import { User } from '../models/user'
 let express = require('express')
 let router = express.Router()
 
-/* GET users listing. */
 router.get('/', function(req: any, res: any) {
   User.findAll({
     attributes: ['id', 'email']
@@ -11,5 +10,20 @@ router.get('/', function(req: any, res: any) {
     res.json(users)
   })
 })
+
+router.post('/', function(req: any, res: any) {
+  User.create({
+    id: req.body.id,
+    email: req.body.email,
+    password: req.body.password
+  }).then((result) => {
+    res.redirect('/login')
+  }).catch(err => {
+    console.log('console : '+ err)
+    res.json(err)
+  }) 
+})
+
+
 
 module.exports = router

@@ -1,21 +1,25 @@
-import {
-  DataTypes, 
-  Model
-} from 'sequelize';
-import {sequelize} from './index'
+import { DataTypes, Model } from 'sequelize'
+import { Column, Table } from 'sequelize-typescript'
+import { sequelize } from './index'
 
 interface UsersAttributes {
   id: string,
   email : string,
-  password : string,
-  created : Date
+  password : string
 }
 
+@Table({
+  tableName: 'user_info'
+})
 export class User extends Model<UsersAttributes>{
+  @Column({primaryKey: true})
   public id! : string
+
+  @Column
   public email! : string
+
+  @Column
   public password! : string
-  public created! : Date
 
   public readonly createdAt!: Date
   public readonly updatedAt!: Date
@@ -34,10 +38,6 @@ User.init(
     },
     password : {
       type : DataTypes.STRING(128),
-      allowNull : false
-    },
-    created : {
-      type : DataTypes.DATE,
       allowNull : false
     }
   },
