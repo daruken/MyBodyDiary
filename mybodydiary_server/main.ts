@@ -27,6 +27,9 @@ models.sequelize.sync().then(() => {
 const userRouter = require('./routes/userRouter')
 app.use('/api/users', userRouter)
 
+const loginRouter = require('./routes/loginRouter')
+app.use('/api/login', loginRouter)
+
 app.listen(PORT,HOST,async () => {
   console.log(`Server Listening on ${HOST}:${PORT}`);
 

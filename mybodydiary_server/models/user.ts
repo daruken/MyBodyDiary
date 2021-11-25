@@ -2,6 +2,8 @@ import { DataTypes, Model } from 'sequelize'
 import { Column, Table } from 'sequelize-typescript'
 import { sequelize } from './index'
 
+const bcrypt = require('bcrypt')
+
 interface UsersAttributes {
   id: string,
   email : string,
@@ -42,6 +44,20 @@ User.init(
     }
   },
   {
+    hooks: {
+      beforeCreate: async (user) => {
+        if (user.password) {
+          const salt = await bcrypt.genSaltSync(10, 'a')
+          user.password = bcrypt.hashSync(user.password, salt)
+        }
+      },
+      beforeUpdate: async (user) => {
+        if (user.password) {
+          const salt = await bcrypt.genSaltSync(10, 'a')
+          user.password = bcrypt.hashSync(user.password, salt)
+        }
+      }
+    },
     modelName : 'User',
     tableName : 'user_info',
     sequelize,

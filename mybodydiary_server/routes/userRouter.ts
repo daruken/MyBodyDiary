@@ -17,10 +17,10 @@ router.post('/', function(req: any, res: any) {
     email: req.body.email,
     password: req.body.password
   }).then((result) => {
-    res.redirect('/login')
+    res.json({ 'result': 0, 'msg': 'ID가 생성되었습니다.'})
   }).catch(err => {
     console.log('console : '+ err)
-    res.json(err)
+    res.json({ 'result': -100, 'msg': err.name })
   }) 
 })
 

@@ -8,8 +8,8 @@ import { Link, Container } from '@material-ui/core'
 
 
 const Signup = () => {
-  const [email, onChangeEmail] = useInput('')
   const [id, onChangeId] = useInput('')
+  const [email, onChangeEmail] = useInput('')
   const [password, onChangePassword] = useInput('')
   const [passwordCheck, setPasswordCheck] = useState('')
   const [mismatchError, setMismatchError] = useState(false)
@@ -27,28 +27,33 @@ const Signup = () => {
     (e) => {
       e.preventDefault()
 
+      if (!id || !password || !email) {
+        return
+      }
+
       if (!mismatchError) {
         setSignUpError('')
         setSignUpSuccess(false)
-        // 요청 보내기 직전에 값들을 전부 초기화 해주자. 아니라면 요청을 연달아 날릴 때
-        // 첫번째 요청때 남아있던 결과가 두번째 요청때도 똑같이 표시되는
-        // 문제가 있을 수 있다.
+
         axios.post('/api/users', {
             id,
             email,
             password,
           })
-          .then((response) => {
-            setSignUpSuccess(true)
+          .then((res: any) => {
+            if (res.data.result === 0) {
+              setSignUpSuccess(true)
+            } else {
+              setSignUpError('회원 가입에 실패하였습니다.')
+            }
           })
           .catch((error) => {
-            console.log(error.response);
-            setSignUpError(error.response.data);
+            console.log(error.res)
           })
           .finally(() => {});
       }
     },
-    [email, id, password, mismatchError],
+    [email, id, password, mismatchError]
   )
 
   return (
@@ -59,7 +64,6 @@ const Signup = () => {
           value={id}
           onChange={onChangeId}
           placeholder="ID" />
-          {!id && <Alert>ID를 입력해주세요.</Alert>}
           <br/>
 
         <Input name="email"
@@ -80,12 +84,17 @@ const Signup = () => {
           value={passwordCheck}
           onChange={onChangePasswordCheck} 
           placeholder="비밀번호 확인" />
-          {mismatchError && <Alert>비밀번호가 일치하지 않습니다.</Alert>}
-      
-          <br/>
 
-          {signUpError && <Alert>{signUpError}</Alert>}
-          {signUpSuccess && <Alert>회원가입 되었습니다!</Alert>}
+        <div>
+          {!id && <Alert severity="info">ID를 입력하시기 바랍니다.</Alert>}
+          {!email && id && <Alert severity="info">E-Mail 주소를 입력하시기 바랍니다.</Alert>}
+          {!password && id && email && <Alert severity="info">비밀번호를 입력하시기 바랍니다.</Alert>}
+          {!passwordCheck && password && id && email && <Alert severity="info">비밀번호 확인을 입력하시기 바랍니다.</Alert>}
+          {mismatchError && password && <Alert severity="warning">비밀번호가 일치하지 않습니다.</Alert>}
+        </div>
+          
+        {signUpError && <Alert severity="error">{signUpError}</Alert>}
+        {signUpSuccess && <Alert>회원가입 되었습니다!</Alert>}
         
         <Button type="submit">회원가입</Button>
       </form>
