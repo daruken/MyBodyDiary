@@ -1,20 +1,45 @@
 import { Link, Button } from "@mui/material";
+import { useState, useEffect } from 'react'
+import axios from 'axios'
 
 function Nav() {
+  const [isLogin, setIsLogin] = useState(false)
+
+  useEffect(() => {
+    axios.get('/api/login', { params: {
+      token: localStorage.getItem('user')
+    } }).then((res: any) => {
+      if (res.data.result === 0) {
+        setIsLogin(true)
+      } else {
+        setIsLogin(false)
+      }
+    })
+    .catch((error) => {
+      alert(error.res.data)
+    })
+  }, [])
+  
+  const logout = () => {
+    localStorage.removeItem('user')
+    window.location.href = '/login'
+  }
+
   return (
     <>
-      <Link href="/">
-        <Button>메인 화면</Button>
+      { isLogin &&
+        <Link href="/">
+          <Button>메인 화면</Button>
+        </Link>
+      }
+      { isLogin && 
+        <Button onClick={logout}>로그아웃</Button>
+      }
+      { isLogin && 
+      <Link href="/test">
+          <Button>테스트 화면</Button>
       </Link>
-      <Link href="/login">
-        <Button>로그인 화면</Button>
-      </Link>
-      <Link href="/user">
-        <Button>유저 화면</Button>
-      </Link>
-      <Link href="/signup">
-        <Button>회원 가입 화면</Button>
-      </Link>
+      }
     </>
   );
 }

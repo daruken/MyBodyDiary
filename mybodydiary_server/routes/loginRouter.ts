@@ -1,8 +1,23 @@
 import { User } from '../models/user'
+import jwt from 'jsonwebtoken'
 
-let bcrypt = require('bcrypt')
-let express = require('express')
-let router = express.Router()
+const bcrypt = require('bcrypt')
+const express = require('express')
+const router = express.Router()
+
+const jwtSecret = 'mybodydiarysecret'
+
+router.get('/', async function (req: any, res: any){
+  const userToken = req.query.token
+
+  jwt.verify(userToken, jwtSecret, (err: any, encode: any) => {
+    if (err) {
+      res.json({ 'result': -300, 'msg': err })
+    } else {
+      res.json({ 'result': 0, 'msg': 'Auth success. encode : ' + encode })
+    }
+  })
+})
 
 router.post('/', async function (req: any, res: any, next: any) {
   let body = req.body
@@ -21,7 +36,11 @@ router.post('/', async function (req: any, res: any, next: any) {
 
     const dbPassword = user.password
     if (bcrypt.compareSync(body.password, dbPassword)) {
-      res.json({ 'result': 0, 'msg': 'Login success.'})
+      const jwtToken = jwt.sign({id: body.id}, jwtSecret,{
+        expiresIn : 60 * 60
+      })
+
+      res.json({ 'result': 0, 'msg': 'Login success.', 'token': jwtToken})
     }
     else {
       res.json({ 'result': -202, 'msg': '비밀번호가 일치하지 않습니다.'})

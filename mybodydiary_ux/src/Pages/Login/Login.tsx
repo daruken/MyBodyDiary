@@ -11,7 +11,6 @@ const Login = () => {
   const [id, onChangeId] = useInput('')
   const [password, onChangePassword] = useInput('')
   const [loginError, setLoginError] = useState(false)
-  const [loginSuccess, setLoginSuccess] = useState(false)
 
   const onSubmit = useCallback(
     (e) => {
@@ -27,14 +26,15 @@ const Login = () => {
         })
         .then((res: any) => {
           if (res.data.result === 0) {
-            setLoginSuccess(true)
-          } {
+            setLoginError(false)
+            localStorage.setItem('user', res.data.token)
+            window.location.href = '/'
+          } else {
             setLoginError(true)
-            console.log(`res : ${res.data.msg}`)
           }
         })
         .catch((error) => {
-          setLoginError(error.res.data)
+          alert(error.res.data)
         })
         .finally(() => {})
       
@@ -44,7 +44,7 @@ const Login = () => {
 
   return (
     <div id="container">
-      <h2>회원 가입</h2>
+      <h2>로그인</h2>
       <form onSubmit={onSubmit}>
         <Input name="id"
           value={id}
@@ -64,8 +64,6 @@ const Login = () => {
           {!password && id && <Alert severity="info">비밀번호를 입력하시기 바랍니다.</Alert>}
           {loginError && <Alert severity="error">로그인을 실패하였습니다.</Alert>}
         </div>
-
-        {loginSuccess && <Alert>로그인 되었습니다.</Alert>}
         
         <Button type="submit">Login</Button>
       </form>
