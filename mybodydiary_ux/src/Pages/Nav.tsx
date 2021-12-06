@@ -1,6 +1,8 @@
 import { Link, Button } from "@mui/material";
 import { useState, useEffect } from 'react'
+import CSS from 'csstype'
 import axios from 'axios'
+
 
 function Nav() {
   const [isLogin, setIsLogin] = useState(false)
@@ -25,6 +27,10 @@ function Nav() {
     window.location.href = '/login'
   }
 
+  const logoutStyle: CSS.Properties = {
+    float: 'right'
+  };
+
   return (
     <>
       { isLogin &&
@@ -33,7 +39,7 @@ function Nav() {
         </Link>
       }
       { isLogin && 
-        <Button onClick={logout}>로그아웃</Button>
+        <Button style={logoutStyle} onClick={logout}>로그아웃</Button>
       }
       { isLogin && 
       <Link href="/test">
