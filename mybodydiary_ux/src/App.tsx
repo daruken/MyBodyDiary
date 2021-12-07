@@ -6,14 +6,14 @@ import Login from './Pages/Login/Login'
 import Test from './Pages/Test'
 import Nav from './Pages/Nav'
 import './App.css'
-import useMediaQuery from '@mui/material/useMediaQuery';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
+import useMediaQuery from '@mui/material/useMediaQuery'
+import { createTheme, ThemeProvider } from '@mui/material/styles'
+import CssBaseline from '@mui/material/CssBaseline'
 
 
 function App() {
   document.title = 'MyBodyDiary'
-  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
+  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)')
 
   const theme = React.useMemo(
     () =>
@@ -23,7 +23,7 @@ function App() {
         },
       }),
     [prefersDarkMode],
-  );
+  )
 
   return (
     <>

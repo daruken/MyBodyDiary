@@ -1,11 +1,13 @@
 import { Link, Button } from "@mui/material";
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import CSS from 'csstype'
 import axios from 'axios'
 
 
 function Nav() {
   const [isLogin, setIsLogin] = useState(false)
+  const navigate = useNavigate()
 
   useEffect(() => {
     axios.get('/api/login', { params: {
@@ -15,16 +17,17 @@ function Nav() {
         setIsLogin(true)
       } else {
         setIsLogin(false)
+        return navigate('/login')
       }
     })
     .catch((error) => {
       alert(error.res.data)
     })
-  }, [])
+  }, [isLogin, navigate])
   
   const logout = () => {
     localStorage.removeItem('user')
-    window.location.href = '/login'
+    return navigate('/login')
   }
 
   const logoutStyle: CSS.Properties = {
