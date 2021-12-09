@@ -28,8 +28,12 @@
     "global-state-hook": "^2.4.0",
     "jsonwebtoken": "^8.5.1",
     "mysql2": "^2.3.3",
+    "reflect-metadata": "^0.1.13",
     "remove": "^0.1.5",
+    "rxjs": "^7.4.0",
     "sequelize": "^6.9.0",
-    "sequelize-typescript": "^2.1.1"
+    "sequelize-typescript": "^2.1.1",
+    "winston": "^3.3.3",
+    "winston-daily-rotate-file": "^4.5.5"
   }
 }

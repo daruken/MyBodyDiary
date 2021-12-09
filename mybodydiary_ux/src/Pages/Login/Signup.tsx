@@ -101,7 +101,7 @@ const Signup = () => {
 
       <Container>
         이미 회원이신가요?&nbsp;
-        <Link href="/login">로그인 하러가기</Link>
+        <Link href="/login">로그인</Link>
       </Container>
     </div>
   );
