@@ -2,7 +2,7 @@
 exports.__esModule = true;
 exports.logger = void 0;
 var winston = require("winston");
-var winstonDaily = require("winston-daily-rotate-file");
+var winstonDaily = require('winston-daily-rotate-file');
 var logDir = 'logs'; // logs 디렉토리 하위에 로그 파일 저장
 var _a = winston.format, combine = _a.combine, timestamp = _a.timestamp, printf = _a.printf;
 // Define log format

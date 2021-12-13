@@ -1,0 +1,16 @@
+{
+  "development": {
+    "username": "root",
+    "password": 1234,
+    "database": "mybodydiary",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "root",
+    "password": null,
+    "database": "mybodydiary",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}
