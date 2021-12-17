@@ -1,5 +1,7 @@
 import { User } from '../models/user'
+import { Request, Response, NextFunction } from 'express'
 import jwt from 'jsonwebtoken'
+
 
 const bcrypt = require('bcrypt')
 const express = require('express')
@@ -7,10 +9,10 @@ const router = express.Router()
 
 const jwtSecret = 'mybodydiarysecret'
 
-router.get('/', async function (req: any, res: any){
+router.get('/', async function (req: Request, res: Response){
   const userToken = req.query.token
 
-  jwt.verify(userToken, jwtSecret, (err: any, encode: any) => {
+  jwt.verify(<string>userToken, jwtSecret, (err: any, encode: any) => {
     if (err) {
       res.json({ 'result': -300, 'msg': err })
     } else {
@@ -19,7 +21,7 @@ router.get('/', async function (req: any, res: any){
   })
 })
 
-router.post('/', async function (req: any, res: any, next: any) {
+router.post('/', async function (req: Request, res: Response, next: NextFunction) {
   let body = req.body
   if (!body.id) {
     res.json({ 'result': -200, 'msg': 'Not exist login id.' })
@@ -29,9 +31,10 @@ router.post('/', async function (req: any, res: any, next: any) {
     where: {
       id: body.id
     }
-  }).then((user: any) => {
+  }).then((user) => {
     if (user === null) {
       res.json({ 'result': -201, 'msg': '존재하지 않는 ID 입니다.'})
+      return
     }
 
     const dbPassword = user.password
@@ -45,7 +48,7 @@ router.post('/', async function (req: any, res: any, next: any) {
     else {
       res.json({ 'result': -202, 'msg': '비밀번호가 일치하지 않습니다.'})
     }
-  }).catch((err: any) => {
+  }).catch((err) => {
     res.json({ 'result': -200, 'msg': err})
   })
 })

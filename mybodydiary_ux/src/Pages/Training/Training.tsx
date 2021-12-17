@@ -1,12 +1,8 @@
 const Training = () => {
-
-
+  
   return (
-    <div>
-      <h2>Training</h2>
-
-    </div>
-  )
-}
+    <h2>Training</h2>
+  );
+};
 
 export default Training

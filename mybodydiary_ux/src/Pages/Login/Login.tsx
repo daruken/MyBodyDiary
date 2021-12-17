@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react'
-import axios from 'axios'
+import axios, { AxiosResponse } from 'axios'
 import useInput from '../../hook/useInput'
 import { Alert } from '@mui/material'
 import Button from '@mui/material/Button'
@@ -24,7 +24,7 @@ const Login = () => {
           id,
           password
         })
-        .then((res: any) => {
+        .then((res: AxiosResponse) => {
           if (res.data.result === 0) {
             setLoginError(false)
             localStorage.setItem('user', res.data.token)
@@ -34,7 +34,7 @@ const Login = () => {
           }
         })
         .catch((error) => {
-          alert(error.res.data)
+          alert(error)
         })
         .finally(() => {})
       

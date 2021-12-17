@@ -1,9 +1,10 @@
+import { Request, Response } from 'express'
 import { User } from '../models/user'
 
 let express = require('express')
 let router = express.Router()
 
-router.get('/', function(req: any, res: any) {
+router.get('/', function(req: Request, res: Response) {
   User.findAll({
     attributes: ['id', 'email']
   }).then((users) => {
@@ -11,7 +12,7 @@ router.get('/', function(req: any, res: any) {
   })
 })
 
-router.post('/', function(req: any, res: any) {
+router.post('/', function(req: Request, res: Response) {
   User.create({
     id: req.body.id,
     email: req.body.email,
@@ -23,7 +24,5 @@ router.post('/', function(req: any, res: any) {
     res.json({ 'result': -100, 'msg': err.name })
   }) 
 })
-
-
 
 module.exports = router

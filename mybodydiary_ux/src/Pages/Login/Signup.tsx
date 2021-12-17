@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react'
-import axios from 'axios'
+import axios, { AxiosResponse } from 'axios'
 import useInput from '../../hook/useInput'
 import { Alert } from '@mui/material'
 import Button from '@mui/material/Button'
@@ -23,11 +23,21 @@ const Signup = () => {
     },
     [password])
 
+  const onChangeEmailCheck = (email: string) => {
+    const re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i
+    return re.test(email)
+  }
+
   const onSubmit = useCallback(
     (e) => {
       e.preventDefault()
 
       if (!id || !password || !email) {
+        return
+      }
+
+      if (onChangeEmailCheck(email) === false) {
+        alert('사용할 수 없는 E-Mail 주소입니다.')
         return
       }
 
@@ -40,9 +50,10 @@ const Signup = () => {
             email,
             password,
           })
-          .then((res: any) => {
+          .then((res: AxiosResponse) => {
             if (res.data.result === 0) {
               setSignUpSuccess(true)
+              window.location.href = '/login'
             } else {
               setSignUpError('회원 가입에 실패하였습니다.')
             }
