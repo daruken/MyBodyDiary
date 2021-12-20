@@ -1,9 +1,8 @@
 import * as React from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import Signup from './Pages/Login/Signup'
-import Login from './Pages/Login/Login'
-import About from './Pages/About'
 import Nav from './Pages/Nav'
+import About from './Pages/About'
+import Home from './Pages/Home'
 import './App.css'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
@@ -32,10 +31,9 @@ function App() {
         <BrowserRouter>
         
         <Routes>
-          <Route path='/signup' element={<Signup />} />
-          <Route path='/login' element={<Login />} />
+          <Route path='/mybodydiary' element={<Nav />} />
           <Route path='/about' element={<About />} />
-          <Route path='/' element={<Nav />} />
+          <Route path='/' element={<Home />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

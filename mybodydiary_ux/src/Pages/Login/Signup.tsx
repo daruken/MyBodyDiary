@@ -4,10 +4,9 @@ import useInput from '../../hook/useInput'
 import { Alert } from '@mui/material'
 import Button from '@mui/material/Button'
 import Input from '@mui/material/Input'
-import { Link, Container } from '@material-ui/core'
 
 
-const Signup = () => {
+const Signup = ({ handleClose }: any) => {
   const [id, onChangeId] = useInput('')
   const [email, onChangeEmail] = useInput('')
   const [password, onChangePassword] = useInput('')
@@ -53,7 +52,7 @@ const Signup = () => {
           .then((res: AxiosResponse) => {
             if (res.data.result === 0) {
               setSignUpSuccess(true)
-              window.location.href = '/login'
+              handleClose()
             } else {
               setSignUpError('회원 가입에 실패하였습니다.')
             }
@@ -64,7 +63,7 @@ const Signup = () => {
           .finally(() => {});
       }
     },
-    [email, id, password, mismatchError]
+    [email, id, password, mismatchError, handleClose]
   )
 
   return (
@@ -109,11 +108,6 @@ const Signup = () => {
         
         <Button type="submit">회원가입</Button>
       </form>
-
-      <Container>
-        이미 회원이신가요?&nbsp;
-        <Link href="/login">로그인</Link>
-      </Container>
     </div>
   );
 }

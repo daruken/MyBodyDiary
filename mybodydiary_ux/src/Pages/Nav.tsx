@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from 'react'
-import { useNavigate, Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import classNames from 'classnames'
 import { SidebarData } from '../Components/SidebarData'
-import * as FaIcons from 'react-icons/fa'
 import * as FiIcons from 'react-icons/fi'
 import { IconContext } from 'react-icons'
 import '../css/Navbar.css'
 import axios from 'axios'
-import Home from '../Pages/Home'
+import Training from '../Pages/Training/Training'
 
 
 const Nav: React.FC<React.ReactNode> = () => {
-  const [comp, setComp] = useState(Home)
+  const [comp, setComp] = useState(Training)
+  const [compIndex, setCompIndex] = useState(0)
   const [isLogin, setIsLogin] = useState(false)
-  const [sidebar, setSidebar] = useState(true)
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -23,7 +23,7 @@ const Nav: React.FC<React.ReactNode> = () => {
         setIsLogin(true)
       } else {
         setIsLogin(false)
-        return navigate('/login')
+        return navigate('/')
       }
     })
     .catch((error) => {
@@ -31,46 +31,42 @@ const Nav: React.FC<React.ReactNode> = () => {
     })
   }, [isLogin, navigate])
 
-  const showSidebar = () => {
-    setSidebar(!sidebar)
+  const showComp = (index: number, comp: React.SetStateAction<JSX.Element>) => {
+    setComp(comp)
+    setCompIndex(index)
   }
   
   const logout = () => {
     localStorage.removeItem('user')
-    window.location.href = '/login'
+    window.location.href = '/'
   }
+
+  let activeClasses = classNames({
+    'nav-text': true,
+    'nav-text-active': true
+  })
 
   return (
     <>
     { isLogin &&
       <IconContext.Provider value={{ color: '#fff' }}>
-        {/* 네비게이션 토글 코드*/}
         <div className="navbar">
-          <Link to="#" className="menu-bars">
-            <FaIcons.FaBars onClick={showSidebar} />
-          </Link>
-
-          <div className="logout">
-            <FiIcons.FiLogOut onClick={logout} />
-          </div>
-        </div>
-
-        <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
-          <ul className="nav-menu-items">
+          <ul>
             {SidebarData.map((item, index) => {
               return (
-                <li key={index} className={item.cName}>
-                  <a href="#!" onClick={() => setComp(item.comp)}>
-                    {item.icon}
+                <li key={index} className={ compIndex === index ? activeClasses : item.cName}>
+                  <a href="#!" onClick={() => showComp(index, item.comp)}>
+                    <span>{item.icon}</span>
                     <span>{item.title}</span>
                   </a>
                 </li>
               );
             })}
+            <FiIcons.FiLogOut onClick={logout} className='logout'/>
           </ul>
-        </nav>
+        </div>
 
-        <div className={sidebar ? 'nav-page active' : 'nav-page'} children={comp} />
+        <div children={comp} />
       </IconContext.Provider>
     }
     </>

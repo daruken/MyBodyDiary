@@ -1,5 +1,4 @@
 import * as BsIcons from 'react-icons/bs'
-import Home from '../Pages/Home'
 import Training from '../Pages/Training/Training'
 import Food from '../Pages/Food/Food'
 import Report from '../Pages/Report/Report'
@@ -7,12 +6,6 @@ import About from '../Pages/About'
 
 
 export const SidebarData = [
-  {
-    title: 'Home',
-    comp: Home,
-    icon: <BsIcons.BsFillHouseDoorFill />,
-    cName: 'nav-text'
-  },
   {
     title: 'Trainning',
     comp: Training,

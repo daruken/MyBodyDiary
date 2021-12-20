@@ -4,10 +4,9 @@ import useInput from '../../hook/useInput'
 import { Alert } from '@mui/material'
 import Button from '@mui/material/Button'
 import Input from '@mui/material/Input'
-import { Link, Container } from '@material-ui/core'
 
 
-const Login = () => {
+const Login = ({ handleClose }: any) => {
   const [id, onChangeId] = useInput('')
   const [password, onChangePassword] = useInput('')
   const [loginError, setLoginError] = useState(false)
@@ -28,7 +27,8 @@ const Login = () => {
           if (res.data.result === 0) {
             setLoginError(false)
             localStorage.setItem('user', res.data.token)
-            window.location.href = '/'
+            handleClose()
+            window.location.href = '/mybodydiary'
           } else {
             setLoginError(true)
           }
@@ -39,11 +39,11 @@ const Login = () => {
         .finally(() => {})
       
     },
-    [id, password],
+    [id, password, handleClose]
   )
 
   return (
-    <div id="container">
+    <div>
       <h2>로그인</h2>
       <form onSubmit={onSubmit}>
         <Input name="id"
@@ -67,11 +67,6 @@ const Login = () => {
         
         <Button type="submit">Login</Button>
       </form>
-
-      <Container>
-        회원이 아니신가요?&nbsp;
-        <Link href="/signup">회원가입</Link>
-      </Container>
     </div>
   );
 }
