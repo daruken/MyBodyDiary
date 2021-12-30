@@ -1,8 +1,11 @@
-const Report = () => {
+const Report = (props: any) => {
 
+  const classes = ['tab-component', props.activeTab && 'active']
+    .filter(Boolean)
+    .join(' ');
 
   return (
-    <div>
+    <div className={classes}>
       <h2>Report</h2>
 
     </div>

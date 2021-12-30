@@ -1,9 +1,13 @@
-const About = () => {
+const About = (props: any) => {
+
+  const classes = ['tab-component', props.activeTab && 'active']
+    .filter(Boolean)
+    .join(' ');
 
   return (
     <>
-    <h2>About</h2>
-    <div>
+    <div className={classes}>
+      <h2>About</h2>
       <p>Playground made by hongten.</p>
     </div>
     </>
