@@ -8,13 +8,15 @@ import * as FiIcons from 'react-icons/fi'
 import { IconContext } from 'react-icons'
 import classNames from 'classnames'
 
+export type TabProps = {
+  activeTab: boolean;
+}
 
-const Tabs = (props: any) => {
+const Tabs = () => {
   const [activeTab, setActiveTab] = useState('Training')
   const [compIndex, setCompIndex] = useState(0)
 
   const handleClickTab = (index: number, title: string) => {
-    console.log(`title: ${title} activeTab : ${activeTab}`)
     setCompIndex(index)
     setActiveTab(title)
   }

@@ -1,7 +1,6 @@
 import * as React from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Nav from './Pages/Nav'
-import About from './Pages/About'
 import Home from './Pages/Home'
 import './App.css'
 import useMediaQuery from '@mui/material/useMediaQuery'
@@ -32,7 +31,6 @@ function App() {
         
         <Routes>
           <Route path='/mybodydiary' element={<Nav />} />
-          <Route path='/about' element={<About />} />
           <Route path='/' element={<Home />} />
         </Routes>
       </BrowserRouter>

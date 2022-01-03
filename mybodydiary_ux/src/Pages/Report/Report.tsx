@@ -1,4 +1,6 @@
-const Report = (props: any) => {
+import { TabProps } from '../../Components/Tab'
+
+const Report = (props: TabProps) => {
 
   const classes = ['tab-component', props.activeTab && 'active']
     .filter(Boolean)

@@ -1,4 +1,6 @@
-const Food = (props: any) => {
+import { TabProps } from '../../Components/Tab'
+
+const Food = (props: TabProps) => {
 
   const classes = ['tab-component', props.activeTab && 'active']
     .filter(Boolean)
