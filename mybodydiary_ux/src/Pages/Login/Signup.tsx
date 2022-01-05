@@ -50,7 +50,7 @@ const Signup = ({handleClose}: any) => {
                     password,
                 })
                     .then((res: AxiosResponse) => {
-                        if (res.data.result === 0) {
+                        if (res.data) {
                             setSignUpSuccess(true)
                             handleClose()
                         } else {

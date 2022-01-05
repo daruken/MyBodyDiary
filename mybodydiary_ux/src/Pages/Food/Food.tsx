@@ -1,4 +1,4 @@
-import {TabProps} from '../../Components/Tab'
+import { TabProps } from '../../Components/Tab'
 
 const Food = (props: TabProps) => {
 

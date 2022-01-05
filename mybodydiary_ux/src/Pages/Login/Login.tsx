@@ -24,10 +24,9 @@ const Login = ({handleClose}: any) => {
                 password
             })
                 .then((res: AxiosResponse) => {
-                    if (res.data.result === 0) {
-                        setLoginError(false)
+                    if (res.data) {
                         localStorage.setItem('userId', id)
-                        localStorage.setItem('userToken', res.data.token)
+                        localStorage.setItem('userToken', res.data.body.token)
                         handleClose()
                         window.location.href = '/mybodydiary'
                     } else {

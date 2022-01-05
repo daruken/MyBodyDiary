@@ -12,10 +12,10 @@ const Nav: React.FC<React.ReactNode> = () => {
     useEffect(() => {
         axios.get('/api/login', {
             params: {
-                token: localStorage.getItem('userToken')
+                id: localStorage.getItem('userId')
             }
         }).then((res: any) => {
-            if (res.data.result === 0) {
+            if (res.data) {
                 setIsLogin(true)
             } else {
                 setIsLogin(false)
