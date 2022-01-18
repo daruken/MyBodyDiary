@@ -13,11 +13,6 @@ open class SecurityConfig(private val jwtTokenProvider: JwtTokenProvider) : WebS
     @Throws(Exception::class) override fun configure(http: HttpSecurity) {
         http.cors().and().csrf().disable()
             .addFilterBefore(JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter::class.java)
-//        http.authorizeRequests()
-//            .antMatchers("/users", "/users/**", "/", "/**")
-//            .access("permitAll")
-//            .and()
-//            .httpBasic()
     }
 
     @Throws(Exception::class)
