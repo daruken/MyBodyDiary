@@ -4,11 +4,15 @@ import FullCalendar, {EventApi, DateSelectArg, EventClickArg, EventContentArg, f
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
+import styled from 'styled-components'
 import axios from 'axios'
 import {TabProps} from '../../Components/Tab'
 import EventPopup from './EventPopup'
 
-
+const FCalendar = styled.div`
+  width: 50%;
+  margin: 0 auto;
+`;
 
 const Training = (props: TabProps) => {
     const [isShowEvent, setIsShowEvent] = useState(false)
@@ -17,12 +21,13 @@ const Training = (props: TabProps) => {
     }
     const closeEventModal = () => {
       setIsShowEvent(false)
+      getEvents()
     }
 
     const [calendarInfo, setCalendarInfo] = useState('')
     const [currentEvents, setCurrentEvents] = useState([])
 
-    useEffect(() => {
+    const getEvents = () => {
       axios.get('/api/events', {
         params: {
             id: localStorage.getItem('userId')
@@ -30,6 +35,10 @@ const Training = (props: TabProps) => {
       }).then((res: any) => {
         setCurrentEvents(res.data.body)
       })
+    }
+
+    useEffect(() => {
+      getEvents()
     }, [])
 
     const classes = ['tab-component', props.activeTab && 'active']
@@ -41,51 +50,31 @@ const Training = (props: TabProps) => {
       openEventModal()
     }
 
-    const renderSidebarEvent = (event: EventApi) => {
-      return (
-        <li key={event.id}>
-          <b>{formatDate(event.start!, {year: 'numeric', month: 'short', day: 'numeric'})}</b>
-          <i>{event.title}</i>
-        </li>
-      )
-    }
-
     return (
-      <div className={classes}>
-        <h2>Training</h2>
+      <FCalendar className={classes}>
+        <FullCalendar
+          plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+          headerToolbar={{
+            left: 'prev,next today',
+            center: 'title',
+            right: 'dayGridMonth,timeGridWeek,timeGridDay'
+          }}
+          initialView='dayGridMonth'
+          editable={true}
+          selectable={true}
+          selectMirror={true}
+          dayMaxEvents={true}
+          events={currentEvents}
+          dateClick={checkDateEvent}
+        />
 
-        <div className='demo-app-sidebar'>
-          <div className='demo-app-sidebar-section'>
-            <h2>All Events ({currentEvents.length})</h2>
-            <ul>
-              {currentEvents.map(renderSidebarEvent)}
-            </ul>
-          </div>
-        </div>
-
-          <FullCalendar
-              plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-              headerToolbar={{
-                  left: 'prev,next today',
-                  center: 'title',
-                  right: 'dayGridMonth,timeGridWeek,timeGridDay'
-              }}
-              initialView='dayGridMonth'
-              editable={true}
-              selectable={true}
-              selectMirror={true}
-              dayMaxEvents={true}
-              events={currentEvents}
-              dateClick={checkDateEvent}
-          />
-
-          <Modal
-              open={isShowEvent}
-              onClose={closeEventModal}
-              center>
-              <EventPopup date={calendarInfo} handleClose={closeEventModal}/>
-          </Modal>
-      </div>
+        <Modal
+          open={isShowEvent}
+          onClose={closeEventModal}
+          center>
+          <EventPopup date={calendarInfo} handleClose={closeEventModal}/>
+        </Modal>
+      </FCalendar>
     );
 };
 

@@ -11,36 +11,32 @@ const Login = ({handleClose}: any) => {
     const [password, onChangePassword] = useInput('')
     const [loginError, setLoginError] = useState(false)
 
-    const onSubmit = useCallback(
-        (e) => {
-            e.preventDefault()
+    const onSubmit = useCallback (
+      (e) => {
+        e.preventDefault()
 
-            if (!id || !password) {
-                return
-            }
+        if (!id || !password) {
+          return
+        }
 
-            axios.post('/api/login', {
-                id,
-                password
-            })
-                .then((res: AxiosResponse) => {
-                    if (res.data) {
-                        localStorage.setItem('userId', id)
-                        localStorage.setItem('userToken', res.data.body.token)
-                        handleClose()
-                        window.location.href = '/mybodydiary'
-                    } else {
-                        setLoginError(true)
-                    }
-                })
-                .catch((error) => {
-                    alert(error)
-                })
-                .finally(() => {
-                })
-
-        },
-        [id, password, handleClose]
+        axios.post('/api/login', {
+            id,
+            password
+        }).then((res: AxiosResponse) => {
+          if (res.data) {
+            localStorage.setItem('userId', id)
+            localStorage.setItem('userToken', res.data.body.token)
+            handleClose()
+            window.location.href = '/mybodydiary'
+          } else {
+            setLoginError(true)
+          }
+        })
+        .catch((error) => {
+          alert(error)
+        })
+      },
+      [id, password, handleClose]
     )
 
     return (

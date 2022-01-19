@@ -6,34 +6,33 @@ import Tabs from '../Components/Tab'
 
 
 const Nav: React.FC<React.ReactNode> = () => {
-    const [isLogin, setIsLogin] = useState(false)
-    const navigate = useNavigate()
+  const [isLogin, setIsLogin] = useState(false)
+  const navigate = useNavigate()
 
-    useEffect(() => {
-        axios.get('/api/login', {
-            params: {
-                id: localStorage.getItem('userId')
-            }
-        }).then((res: any) => {
-            if (res.data) {
-                setIsLogin(true)
-            } else {
-                setIsLogin(false)
-                return navigate('/')
-            }
-        })
-            .catch((error) => {
-                alert(error.res.data)
-            })
-    }, [isLogin, navigate])
+  useEffect(() => {
+    axios.get('/api/login', {
+      params: {
+        id: localStorage.getItem('userId')
+      }
+    }).then((res: any) => {
+      if (res.data) {
+        setIsLogin(true)
+      } else {
+        setIsLogin(false)
+        return navigate('/')
+      }
+    }).catch((error) => {
+      alert(error.res.data)
+    })
+  }, [isLogin, navigate])
 
-    return (
-        <>
-            {isLogin &&
-                <Tabs/>
-            }
-        </>
-    );
+  return (
+    <>
+      {isLogin &&
+        <Tabs/>
+      }
+    </>
+  );
 }
 
 export default Nav;

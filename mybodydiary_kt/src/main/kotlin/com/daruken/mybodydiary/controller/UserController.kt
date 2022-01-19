@@ -28,7 +28,6 @@ class UserController (
 
     @GetMapping("/api/login")
     fun checkLogin(@RequestParam id: String): ResponseEntity<*> {
-
         return ResponseEntity.ok().body(true)
     }
 
