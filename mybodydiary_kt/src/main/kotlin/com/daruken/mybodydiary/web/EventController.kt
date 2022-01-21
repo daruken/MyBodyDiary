@@ -8,20 +8,21 @@ import org.springframework.web.bind.annotation.*
 import java.time.LocalDate
 
 @RestController
+@RequestMapping("/api/event")
 class EventController (private val userService: UserService,
     private val eventService: EventService) {
 
-    @GetMapping("/api/events")
+    @GetMapping("/id")
     fun getEvents(@RequestParam id: String): ResponseEntity<*> {
         return ResponseEntity.ok(eventService.findEventById(id))
     }
 
-    @GetMapping("/api/event")
+    @GetMapping("/id/date")
     fun getEvent(@RequestParam id: String, @RequestParam date: String): ResponseEntity<*> {
         return ResponseEntity.ok(eventService.findEventByIdAndDate(id, LocalDate.parse(date)))
     }
 
-    @PostMapping("/api/events")
+    @PostMapping("/")
     fun setEvent(@RequestBody event: Event): ResponseEntity<*> {
         val localEvent: Event = Event(id = event.id, date = event.date, title = event.title, content = event.content)
 

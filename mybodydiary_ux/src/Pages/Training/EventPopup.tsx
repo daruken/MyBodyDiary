@@ -19,7 +19,7 @@ const EventPopup = (props: EventProps) => {
   const localDate = year + '-' + month + '-' + day
 
   useEffect(() => {
-    axios.get('/api/event', {
+    axios.get('/api/event/id/date', {
       params: {
         id: localStorage.getItem('userId'),
         date: localDate
@@ -39,7 +39,7 @@ const EventPopup = (props: EventProps) => {
       return
     }
 
-    axios.post('/api/events', {
+    axios.post('/api/event', {
       id: localStorage.getItem('userId'),
       date: localDate,
       title: title,

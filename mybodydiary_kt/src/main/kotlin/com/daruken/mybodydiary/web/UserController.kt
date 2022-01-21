@@ -8,29 +8,30 @@ import org.springframework.web.bind.annotation.*
 import java.util.*
 
 @RestController
+@RequestMapping("/api/user")
 class UserController (
     private val userService: UserService,
     private val passwordEncoder: PasswordEncoder
         ){
 
-    @GetMapping("/api/users")
+    @GetMapping("/")
     fun getUsers(): ResponseEntity<*> {
         return ResponseEntity.ok(userService.findAllUser())
     }
 
-    @PostMapping("/api/users")
+    @PostMapping("/signup")
     fun createUser(@RequestBody user: User): ResponseEntity<*> {
         val localUser: User = User(user.id, user.email, passwordEncoder.encode(user.password))
 
         return ResponseEntity.ok(userService.createUser(localUser))
     }
 
-    @GetMapping("/api/login")
+    @GetMapping("/checkLogin")
     fun checkLogin(@RequestParam id: String): ResponseEntity<*> {
         return ResponseEntity.ok().body(true)
     }
 
-    @PostMapping("/api/login")
+    @PostMapping("/login")
     fun login(@RequestBody user: User): ResponseEntity<*> {
         val dbUser: Optional<User> = userService.findUser(user.id)
         if(dbUser.isEmpty) {

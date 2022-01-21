@@ -19,7 +19,7 @@ const Login = ({handleClose}: any) => {
           return
         }
 
-        axios.post('/api/login', {
+        axios.post('/api/user/login', {
             id,
             password
         }).then((res: AxiosResponse) => {

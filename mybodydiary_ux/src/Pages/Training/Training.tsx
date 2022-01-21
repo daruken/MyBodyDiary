@@ -28,7 +28,7 @@ const Training = (props: TabProps) => {
     const [currentEvents, setCurrentEvents] = useState([])
 
     const getEvents = () => {
-      axios.get('/api/events', {
+      axios.get('/api/event/id', {
         params: {
             id: localStorage.getItem('userId')
         }

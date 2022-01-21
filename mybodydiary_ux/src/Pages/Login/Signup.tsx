@@ -43,7 +43,7 @@ const Signup = ({handleClose}: any) => {
       setSignUpError('')
       setSignUpSuccess(false)
 
-      axios.post('/api/users', {
+      axios.post('/api/user/signup', {
         id,
         email,
         password,
@@ -52,7 +52,7 @@ const Signup = ({handleClose}: any) => {
           setSignUpSuccess(true)
           handleClose()
         } else {
-            setSignUpError('회원 가입에 실패하였습니다.')
+          setSignUpError('회원 가입에 실패하였습니다.')
         }
       }).catch((error) => {
         console.log(error.res)
