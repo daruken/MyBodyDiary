@@ -4,7 +4,6 @@ import com.daruken.mybodydiary.entity.User
 import com.daruken.mybodydiary.repository.UserRepository
 import com.daruken.mybodydiary.response.ResponseUser
 import com.daruken.mybodydiary.security.JwtTokenProvider
-import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
 import java.util.*
