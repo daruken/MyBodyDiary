@@ -1,7 +1,7 @@
 package com.daruken.mybodydiary.service
 
-import com.daruken.mybodydiary.entity.Event
-import com.daruken.mybodydiary.repository.EventRepository
+import com.daruken.mybodydiary.domain.event.Event
+import com.daruken.mybodydiary.domain.event.EventRepository
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
 import java.time.LocalDate

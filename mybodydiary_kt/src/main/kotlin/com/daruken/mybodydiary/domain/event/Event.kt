@@ -1,4 +1,4 @@
-package com.daruken.mybodydiary.entity
+package com.daruken.mybodydiary.domain.event
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import org.hibernate.annotations.CreationTimestamp

@@ -1,8 +1,8 @@
 package com.daruken.mybodydiary.service
 
-import com.daruken.mybodydiary.entity.User
-import com.daruken.mybodydiary.repository.UserRepository
-import com.daruken.mybodydiary.response.ResponseUser
+import com.daruken.mybodydiary.domain.user.User
+import com.daruken.mybodydiary.domain.user.UserRepository
+import com.daruken.mybodydiary.web.dto.ResponseUserDto
 import com.daruken.mybodydiary.security.JwtTokenProvider
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
@@ -33,8 +33,8 @@ class UserService(private val userRepository: UserRepository, private val jwtTok
 
     fun login(user: User): ResponseEntity<*> {
         val token: String = jwtTokenProvider.createToken(user.id)
-        val responseUser = ResponseUser(token)
+        val responseUserDto = ResponseUserDto(token)
 
-        return ResponseEntity.ok().body(responseUser)
+        return ResponseEntity.ok().body(responseUserDto)
     }
 }

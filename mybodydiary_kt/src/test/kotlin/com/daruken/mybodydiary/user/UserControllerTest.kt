@@ -1,6 +1,6 @@
 package com.daruken.mybodydiary.user
 
-import com.daruken.mybodydiary.entity.User
+import com.daruken.mybodydiary.domain.user.User
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import org.junit.jupiter.api.Test

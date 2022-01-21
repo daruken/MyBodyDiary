@@ -1,4 +1,4 @@
-package com.daruken.mybodydiary.entity
+package com.daruken.mybodydiary.domain.user
 
 import org.hibernate.annotations.CreationTimestamp
 import org.hibernate.annotations.UpdateTimestamp

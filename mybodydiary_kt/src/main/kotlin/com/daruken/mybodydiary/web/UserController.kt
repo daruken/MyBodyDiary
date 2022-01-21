@@ -1,6 +1,6 @@
-package com.daruken.mybodydiary.controller
+package com.daruken.mybodydiary.web
 
-import com.daruken.mybodydiary.entity.User
+import com.daruken.mybodydiary.domain.user.User
 import com.daruken.mybodydiary.service.UserService
 import org.springframework.http.ResponseEntity
 import org.springframework.security.crypto.password.PasswordEncoder

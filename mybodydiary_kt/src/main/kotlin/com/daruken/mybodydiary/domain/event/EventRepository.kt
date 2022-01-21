@@ -1,6 +1,6 @@
-package com.daruken.mybodydiary.repository
+package com.daruken.mybodydiary.domain.event
 
-import com.daruken.mybodydiary.entity.Event
+import com.daruken.mybodydiary.domain.event.Event
 import org.springframework.data.jpa.repository.JpaRepository
 import java.time.LocalDate
 import java.util.*
