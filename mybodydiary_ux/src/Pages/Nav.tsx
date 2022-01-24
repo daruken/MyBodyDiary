@@ -10,7 +10,7 @@ const Nav: React.FC<React.ReactNode> = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    axios.get('/api/user/checkLogin', {
+    axios.get('/api/user/check-login', {
       params: {
         id: localStorage.getItem('userId')
       }
@@ -22,7 +22,7 @@ const Nav: React.FC<React.ReactNode> = () => {
         return navigate('/')
       }
     }).catch((error) => {
-      alert(error.res.data)
+      alert(error)
     })
   }, [isLogin, navigate])
 

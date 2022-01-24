@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
 import axios, {AxiosResponse} from 'axios'
-import useInput from '../../hook/useInput'
 import Button from '@mui/material/Button'
 import Input from '@mui/material/Input'
 
@@ -30,7 +29,7 @@ const EventPopup = (props: EventProps) => {
         setContent(res.data.body.content)
       }
     })
-  }, [])
+  }, [localDate])
 
   const onSubmit = useCallback ((e) => {
     e.preventDefault()
@@ -51,7 +50,7 @@ const EventPopup = (props: EventProps) => {
     }).catch((error) => {
       alert(error)
     })
-    },[title, content, props.handleClose])
+    },[title, localDate, content, props.handleClose])
 
     return (
       <div>
