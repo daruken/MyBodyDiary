@@ -1,4 +1,4 @@
-import {TabProps} from '../../Components/Tab'
+import {TabProps} from '../../components/Tabs'
 
 const Report = (props: TabProps) => {
 

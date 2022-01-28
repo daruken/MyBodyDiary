@@ -1,12 +1,12 @@
-import Training from "../Pages/Training/Training";
-import Food from "../Pages/Food/Food"
-import Report from "../Pages/Report/Report"
-import About from "../Pages/About"
 import {useState} from "react";
-import {SidebarData} from '../Components/SidebarData'
+import {SidebarData} from './SidebarData'
 import * as FiIcons from 'react-icons/fi'
 import {IconContext} from 'react-icons'
 import classNames from 'classnames'
+import Training from "../domain/training/Training";
+import Food from "../domain/Food/Food"
+import Report from "../domain/report/Report"
+import About from "../domain/About"
 
 export type TabProps = {
   activeTab: boolean;
@@ -61,4 +61,4 @@ const Tabs = () => {
   );
 };
 
-export default Tabs;
+export default Tabs

@@ -1,17 +1,21 @@
 package com.daruken.mybodydiary.web
 
 import com.daruken.mybodydiary.domain.user.User
+import com.daruken.mybodydiary.security.JwtTokenProvider
 import com.daruken.mybodydiary.service.UserService
+import com.daruken.mybodydiary.web.dto.NaverLoginDto
 import org.springframework.http.ResponseEntity
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.web.bind.annotation.*
+import org.springframework.web.reactive.function.client.WebClient
 import java.util.*
 
 @RestController
 @RequestMapping("/api/user")
 class UserController(
     private val userService: UserService,
-    private val passwordEncoder: PasswordEncoder
+    private val passwordEncoder: PasswordEncoder,
+    private val jwtTokenProvider: JwtTokenProvider
 ) {
 
     @GetMapping("/")
@@ -43,5 +47,22 @@ class UserController(
         }
 
         return ResponseEntity.ok(userService.login(user))
+    }
+
+    @GetMapping("/naver/login")
+    fun getNaverLoginInfo(@RequestParam accessToken: String): ResponseEntity<*> {
+        val webClient = WebClient.create()
+
+        val response: NaverLoginDto? = webClient.get()
+            .uri("https://openapi.naver.com/v1/nid/me")
+            .header("Authorization", "Bearer " + accessToken)
+            .retrieve()
+            .bodyToMono(NaverLoginDto::class.java)
+            .block()
+
+        val token: String = jwtTokenProvider.createToken(response?.response?.email)
+        response?.token = token
+
+        return ResponseEntity.ok().body(response)
     }
 }

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
-import axios, {AxiosResponse} from 'axios'
+import axios, { AxiosResponse } from 'axios'
 import Button from '@mui/material/Button'
 import Input from '@mui/material/Input'
 
@@ -23,7 +23,7 @@ const EventPopup = (props: EventProps) => {
         id: localStorage.getItem('userId'),
         date: localDate
       }
-    }).then((res: any) => {
+    }).then((res: AxiosResponse) => {
       if (res.data.body) {
         setTitle(res.data.body.title)
         setContent(res.data.body.content)

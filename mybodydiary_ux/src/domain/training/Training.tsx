@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
 import Modal from 'react-responsive-modal'
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
 import styled from 'styled-components'
-import axios from 'axios'
-import {TabProps} from '../../Components/Tab'
+import axios, { AxiosResponse } from 'axios'
+import { TabProps } from '../../components/Tabs'
 import EventPopup from './EventPopup'
 
 const FCalendar = styled.div`
@@ -30,15 +31,40 @@ const Training = (props: TabProps) => {
     const getEvents = () => {
       axios.get('/api/event/id', {
         params: {
-            id: localStorage.getItem('userId')
+          id: localStorage.getItem('userId')
         }
-      }).then((res: any) => {
+      }).then((res: AxiosResponse) => {
         setCurrentEvents(res.data.body)
       })
     }
 
+    const location = useLocation()
+    const getNaverToken = () => {
+      if (!location.hash) {
+        if (localStorage.getItem('userId')) {
+          getEvents()
+          return
+        }
+      }
+
+      const token = location.hash.split('=')[1].split('&')[0]
+
+      axios.get('/api/user/naver/login', {
+        params: {
+          accessToken: token
+        }
+      }).then((res: AxiosResponse) => {
+        if (res.data) {
+          localStorage.setItem('userId', res.data.response.email)
+          localStorage.setItem('userToken', res.data.token)
+
+          getEvents()
+        }
+      })
+    }
+
     useEffect(() => {
-      getEvents()
+      getNaverToken()
     }, [])
 
     const classes = ['tab-component', props.activeTab && 'active']

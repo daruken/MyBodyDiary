@@ -27,7 +27,7 @@ class JwtTokenProvider(private val userDetailsService: UserDetailsService) {
         secretKey = Base64.getEncoder().encodeToString(secretKey.toByteArray())
     }
 
-    fun createToken(userPk: String): String {
+    fun createToken(userPk: String?): String {
         val claims: Claims = Jwts.claims().setSubject(userPk) // JWT payload 에 저장되는 정보단위
         claims["userPk"] = userPk // 정보는 key / value 쌍으로 저장된다.
         val now = Date()

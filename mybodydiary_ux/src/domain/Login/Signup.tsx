@@ -1,6 +1,6 @@
 import {useState, useCallback} from 'react'
 import axios, {AxiosResponse} from 'axios'
-import useInput from '../../hook/useInput'
+import useInput from '../../components/hook/useInput'
 import {Alert} from '@mui/material'
 import Button from '@mui/material/Button'
 import Input from '@mui/material/Input'

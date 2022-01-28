@@ -1,4 +1,4 @@
-import { TabProps } from '../../Components/Tab'
+import { TabProps } from '../../components/Tabs'
 
 const Food = (props: TabProps) => {
   const classes = ['tab-component', props.activeTab && 'active']

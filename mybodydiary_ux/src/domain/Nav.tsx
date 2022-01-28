@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import {useNavigate} from 'react-router-dom'
 import '../css/Navbar.css'
 import axios from 'axios'
-import Tabs from '../Components/Tab'
+import Tabs from '../components/Tabs'
 
 
 const Nav: React.FC<React.ReactNode> = () => {
