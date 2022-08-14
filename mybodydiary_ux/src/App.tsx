@@ -1,26 +1,40 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import * as React from 'react'
+import {BrowserRouter, Route, Routes} from 'react-router-dom'
+import Nav from './domain/Nav'
+import Home from './domain/Home'
+import './App.css'
+import useMediaQuery from '@mui/material/useMediaQuery'
+import {createTheme, ThemeProvider} from '@mui/material/styles'
+import CssBaseline from '@mui/material/CssBaseline'
+
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  document.title = 'MyBodyDiary'
+  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)')
+
+  const theme = React.useMemo(
+    () =>
+      createTheme({
+        palette: {
+          mode: prefersDarkMode ? 'dark' : 'light',
+        },
+      }),
+    [prefersDarkMode],
+  )
+
+    return (
+      <>
+        <ThemeProvider theme={theme}>
+          <CssBaseline/>
+          <BrowserRouter>
+            <Routes>
+              <Route path='/mybodydiary' element={<Nav/>}/>
+              <Route path='/' element={<Home/>}/>
+            </Routes>
+          </BrowserRouter>
+        </ThemeProvider>
+      </>
+    );
 }
 
 export default App;

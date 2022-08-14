@@ -1,0 +1,54 @@
+.homeHead {
+    display: flex;
+}
+
+.homeHead img {
+    margin: 10px;
+    margin-top: 23px;
+    width: 30px;
+    height: 30px;
+}
+
+.homeBody img {
+    width: 100%;
+    height: 400px;
+}
+
+.homeBody h1 {
+    color: white;
+    position: absolute;
+    top: 120px;
+    left: 200px;
+}
+
+.homeBody p {
+    color: white;
+    position: absolute;
+    top: 200px;
+    left: 200px;
+}
+
+.homeBody Button {
+    position: absolute;
+    top: 350px;
+    left: 300px;
+}
+
+.react-responsive-modal-modal {
+    background-color: #121212;
+    width: 320px;
+    height: auto;
+}
+
+.react-responsive-modal-closeButton {
+    fill: white;
+}
+
+.copyright {
+    margin-top: 150px;
+    text-align: center;
+}
+
+.copyright a {
+    color: rgb(40, 116, 166);
+}
